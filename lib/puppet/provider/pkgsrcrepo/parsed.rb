@@ -12,4 +12,11 @@ Puppet::Type.type(:pkgsrcrepo).provide(:parsed, :parent => Puppet::Provider::Par
 
   record_line :parsed , :fields => %w{url}
 
+  commands :pkgin => "pkgin"
+
+  def flush
+    super
+    pkgin("-yf", :update)
+  end
+
 end
