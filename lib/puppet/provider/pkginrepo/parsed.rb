@@ -1,7 +1,9 @@
 
 require 'puppet/provider/parsedfile'
 
-Puppet::Type.type(:pkginrepo).provide(:parsed, :parent => Puppet::Provider::ParsedFile, :filetype => :flat) do
+repositories = "/opt/local/etc/pkgin/repositories.conf"
+
+Puppet::Type.type(:pkginrepo).provide(:parsed, :parent => Puppet::Provider::ParsedFile, :default_target => repositories , :filetype => :flat) do
 
   desc "Provider"
 
