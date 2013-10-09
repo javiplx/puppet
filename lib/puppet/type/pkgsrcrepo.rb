@@ -1,5 +1,5 @@
-Puppet::Type.newtype(:pkginrepo) do
-  @doc = "ParsedFile type to handle pkgin repositories"
+Puppet::Type.newtype(:pkgsrcrepo) do
+  @doc = "ParsedFile type to handle pkgsrc repositories"
 
   ensurable
 
