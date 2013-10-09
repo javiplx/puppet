@@ -10,6 +10,6 @@ Puppet::Type.type(:pkginrepo).provide(:parsed, :parent => Puppet::Provider::Pars
   text_line :comment , :match => /^#/;
   text_line :blank , :match => /^\s*$/;
 
-  record_line :parsed , :fields => %w{url}
+  record_line :parsed , :fields => %w{name}
 
 end
