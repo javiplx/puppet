@@ -11,7 +11,7 @@ Puppet::Type.newtype(:pkgsrcrepo) do
   newproperty(:target) do
     defaultto {
       if @resource.class.defaultprovider.ancestors.include? (Puppet::Provider::ParsedFile)
-        @resouce.class.defaultprovider.default_target
+        @resource.class.defaultprovider.default_target
       else
         nil
       end
