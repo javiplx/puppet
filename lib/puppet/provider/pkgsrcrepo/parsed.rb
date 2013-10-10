@@ -7,6 +7,8 @@ Puppet::Type.type(:pkgsrcrepo).provide(:parsed, :parent => Puppet::Provider::Par
 
   desc "Basic provider for pkgsrcrepo type"
 
+  confine :exists => repositories
+
   text_line :comment , :match => /^#/;
   text_line :blank , :match => /^\s*$/;
 
