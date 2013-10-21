@@ -3,7 +3,7 @@ Puppet::Type.newtype(:pkgsrcrepo) do
 
   ensurable
 
-  newparam(:url) do
+  newparam(:name) do
     desc "Repository url"
     isnamevar
   end

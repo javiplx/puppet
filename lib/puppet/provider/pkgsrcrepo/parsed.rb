@@ -12,10 +12,7 @@ Puppet::Type.type(:pkgsrcrepo).provide(:parsed, :parent => Puppet::Provider::Par
   text_line :comment , :match => /^#/;
   text_line :blank , :match => /^\s*$/;
 
-  record_line :parsed , :fields => %w{url} ,
-    :post_parse => proc { |hash|
-      hash[:name] = hash[:url]
-      }
+  record_line :parsed , :fields => %w{name}
 
   commands :pkgin => "pkgin"
 
