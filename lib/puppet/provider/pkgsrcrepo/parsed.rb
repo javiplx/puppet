@@ -1,7 +1,11 @@
 
 require 'puppet/provider/parsedfile'
 
-repositories = "/opt/local/etc/pkgin/repositories.conf"
+case Facter.value(:operatingsystem) when "SmartOS"
+  repositories = "/opt/local/etc/pkgin/repositories.conf"
+else
+  repositories = "/etc/pkgin/repositories.conf"
+end
 
 Puppet::Type.type(:pkgsrcrepo).provide(:parsed, :parent => Puppet::Provider::ParsedFile, :default_target => repositories , :filetype => :flat) do
 
