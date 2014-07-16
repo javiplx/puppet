@@ -695,7 +695,7 @@ describe Puppet::Settings do
       before(:each) do
         @settings.define_settings :main,
           :manifestdir => { :default => "/manifests", :desc => "manifestdir setting" },
-          :environment => { :default => "production", :desc => "environment setting" }
+          :environment => { :default => "production", :desc => "environment setting" },
           :tier => { :default => "", :desc => "tier setting" }
       end
 
