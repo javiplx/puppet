@@ -249,6 +249,12 @@ module Puppet
           is used to find modules and much more.  For servers (i.e., `puppet master`)
           this provides the default environment for nodes we know nothing about."
     },
+    :tier => {
+        :default  => "",
+        :desc     => "The tier Puppet is running in. It is somewhat similar
+          to environment, but reflects the node location within the infrastructure
+          so it is not expected to change along node lifetime."
+    },
     :environmentpath => {
       :default => "",
       :desc    => "A search path for directory environments, as a list of directories
