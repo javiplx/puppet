@@ -690,7 +690,7 @@ describe Puppet::Settings do
     context "when interpolating a dynamic environment/tier setting" do
       let(:dynamic_manifestdir) { "manifestdir=/somewhere/$environment/$tier/manifests" }
       let(:environment) { "environment=anenv" }
-      let(:tier) { "environment=atier" }
+      let(:tier) { "tier=atier" }
 
       before(:each) do
         @settings.define_settings :main,
