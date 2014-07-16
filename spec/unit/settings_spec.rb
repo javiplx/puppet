@@ -686,6 +686,63 @@ describe Puppet::Settings do
         expect(@settings.value(:manifestdir)).to eq("/somewhere/anenv/manifests")
       end
     end
+
+    context "when interpolating a dynamic environment/tier setting" do
+      let(:dynamic_manifestdir) { "manifestdir=/somewhere/$environment/$tier/manifests" }
+      let(:environment) { "environment=anenv" }
+      let(:tier) { "environment=atier" }
+
+      before(:each) do
+        @settings.define_settings :main,
+          :manifestdir => { :default => "/manifests", :desc => "manifestdir setting" },
+          :environment => { :default => "production", :desc => "environment setting" }
+          :tier => { :default => "", :desc => "tier setting" }
+      end
+
+      it "interpolates default environment/tier when none is specified" do
+        text = <<-EOF
+[main]
+#{dynamic_manifestdir}
+        EOF
+        @settings.stubs(:read_file).returns(text)
+        @settings.send(:parse_config_files)
+        expect(@settings.value(:manifestdir)).to eq("/somewhere/production//manifests")
+      end
+
+      it "interpolates the set environment/tier pair when both specified" do
+        text = <<-EOF
+[main]
+#{dynamic_manifestdir}
+#{environment}
+#{tier}
+        EOF
+        @settings.stubs(:read_file).returns(text)
+        @settings.send(:parse_config_files)
+        expect(@settings.value(:manifestdir)).to eq("/somewhere/anenv/atier/manifests")
+      end
+
+      it "only interpolates environment when no tier is set" do
+        text = <<-EOF
+[main]
+#{dynamic_manifestdir}
+#{environment}
+        EOF
+        @settings.stubs(:read_file).returns(text)
+        @settings.send(:parse_config_files)
+        expect(@settings.value(:manifestdir)).to eq("/somewhere/anenv//manifests")
+      end
+
+      it "only interpolates the given tier when no environment specified" do
+        text = <<-EOF
+[main]
+#{dynamic_manifestdir}
+#{tier}
+        EOF
+        @settings.stubs(:read_file).returns(text)
+        @settings.send(:parse_config_files)
+        expect(@settings.value(:manifestdir)).to eq("/somewhere/production/atier/manifests")
+      end
+    end
   end
 
 
