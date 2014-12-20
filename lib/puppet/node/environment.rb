@@ -53,13 +53,14 @@ class Puppet::Node::Environment
   #     Puppet.settings[:environment]
   #
   # @api public
-  def self.new(name = nil)
+  def self.new(name = nil, tier = nil)
     return name if name.is_a?(self)
     name ||= Puppet.settings.value(:environment)
 
     raise ArgumentError, "Environment name must be specified" unless name
 
     symbol = name.to_sym
+    symbol += "." + tier.to_sym unless tier.nil?
 
     return seen[symbol] if seen[symbol]
 

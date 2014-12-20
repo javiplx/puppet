@@ -1012,7 +1012,9 @@ Generated on #{Time.now}.
   # @raise [InterpolationError]
   def value(param, environment = nil, bypass_interpolation = false)
     param = param.to_sym
+    environment, tier = environment.to_s.split('.')
     environment &&= environment.to_sym
+    tier &&= tier.to_sym
 
     setting = @config[param]
 
